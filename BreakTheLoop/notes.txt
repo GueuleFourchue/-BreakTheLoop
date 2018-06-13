@@ -1,0 +1,12 @@
+IDEES ATELIERS OutLoop
+- Mirroir
+- Yaw (rotation y)
+- Look behind
+
+Interactivity is color
+Rest is black and white
+
+Aprrendre 1 truc 
+==> le réut après
+
+Utiliser le son comme feedback de chemin
