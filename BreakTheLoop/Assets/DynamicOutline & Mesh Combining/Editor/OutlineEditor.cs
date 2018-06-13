@@ -71,6 +71,7 @@ public class OutlineEditor : Editor {
             GUILayout.BeginHorizontal();
 
             Color color = EditorGUILayout.ColorField("Color", m_target.material.GetColor("_OutlineColor"));
+            Color baseColor = EditorGUILayout.ColorField("Color", m_target.material.GetColor("_BaseColor"));
 
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
@@ -86,6 +87,7 @@ public class OutlineEditor : Editor {
                 m_target.active = visible;
                 m_target.root.SetActive(visible);
                 m_target.material.SetColor("_OutlineColor", color);
+                m_target.material.SetColor("_BaseColor", baseColor);
                 m_target.material.SetFloat("_Thickness", thickness);
 
                 EditorUtility.SetDirty(m_target);

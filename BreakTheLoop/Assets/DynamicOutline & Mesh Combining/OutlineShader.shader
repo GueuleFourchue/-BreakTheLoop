@@ -1,10 +1,13 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "DynamicOutline/Outline Only" {
 
 	Properties {
+		_BaseColor ("Base Color", Color) = (1,1,1,1)
 		_OutlineColor ("Outline Color", Color) = (1,1,1,1)
-		_Thickness ("Outline thickness", Range (0.002, 0.9)) = .005
+		_Thickness ("Outline thickness", Range (0.002, 0.5)) = .005
 	}
  
 	CGINCLUDE
@@ -31,7 +34,7 @@ Shader "DynamicOutline/Outline Only" {
 			float2 offset = TransformViewToProjection(norm.xy);
  
 			o.pos.xy += offset * o.pos.z * _Thickness;
-			o.color = _OutlineColor * 1.8;
+			o.color = _OutlineColor;
 			return o;
 		}
 	ENDCG
@@ -39,6 +42,28 @@ Shader "DynamicOutline/Outline Only" {
 	SubShader {
 		Tags { "Queue" = "Transparent" }
  
+		Pass {
+			Blend SrcAlpha OneMinusSrcAlpha
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            
+            float4 vert (float4 vertex : POSITION) : SV_POSITION
+            {
+                return UnityObjectToClipPos(vertex);
+            }
+            
+            fixed4 _BaseColor;
+
+            fixed4 frag () : SV_Target
+            {
+                return _BaseColor;
+            }
+            ENDCG
+        }
+
+	
 		Pass {
 			Name "BASE"
 			Cull Back
