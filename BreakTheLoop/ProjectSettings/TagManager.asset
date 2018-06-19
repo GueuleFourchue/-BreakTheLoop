@@ -16,10 +16,10 @@ TagManager:
   - 
   - Outlinable
   - Player
-  - 
-  - 
-  - 
-  - 
+  - FogVolumeShadowCaster
+  - FogVolume
+  - FogVolumeSurrogate
+  - FogVolumeUniform
   - 
   - 
   - 
