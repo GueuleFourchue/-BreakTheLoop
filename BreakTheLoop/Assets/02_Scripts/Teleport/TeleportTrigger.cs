@@ -7,6 +7,11 @@ public class TeleportTrigger : MonoBehaviour {
     public bool standardLoop;
     public LoopTeleport loopTeleport;
     public string GatingObject;
+    public Vector3 TpPosition;
+
+    public bool keepXPosition;
+    public bool keepYPosition;
+    public bool keepZPosition;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +23,13 @@ public class TeleportTrigger : MonoBehaviour {
             }
             else 
             {
+                if (keepXPosition)
+                    loopTeleport.finalPosition = new Vector3 (other.transform.position.x, TpPosition.y, TpPosition.z);
+                if (keepYPosition)
+                    loopTeleport.finalPosition = new Vector3(TpPosition.x, other.transform.position.y, TpPosition.z);
+                if (keepZPosition)
+                    loopTeleport.finalPosition = new Vector3(TpPosition.x, TpPosition.y, other.transform.position.z);
+
                 loopTeleport.StartCoroutine("Teleport");
             }
         }
