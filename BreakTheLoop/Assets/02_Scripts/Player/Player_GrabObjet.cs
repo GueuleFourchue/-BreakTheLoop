@@ -12,6 +12,9 @@ public class Player_GrabObjet : MonoBehaviour {
     public LoopTeleport teleport;
     public SoundEffects soundEffects;
 
+    public bool canThrow;
+    public Player_UseOrb playerUseOrb;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && grabbedObject == null)
@@ -29,9 +32,9 @@ public class Player_GrabObjet : MonoBehaviour {
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && grabbedObject != null)
+        if (Input.GetMouseButtonDown(1) && canThrow && grabbedObject != null)
         {
-            //ThrowObject();
+            ThrowObject();
         }
     }
 
@@ -40,11 +43,13 @@ public class Player_GrabObjet : MonoBehaviour {
         grabbedObject = obj;
         grabbedObject.parent = holdingParent;
         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+        grabbedObject.GetComponent<Rigidbody>().useGravity = false;
         grabbedObject.GetComponent<ObjectHandMove>().enabled = true;
 
         if (obj.name == "Grabable_OrbRed")
         {
             obj.GetComponent<OrbPulseGlow>().enabled = true;
+            playerUseOrb.enabled = true;
         }
     }
 
@@ -54,6 +59,7 @@ public class Player_GrabObjet : MonoBehaviour {
         grabbedObject.parent = null;
         Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
         rb.isKinematic = false;
+        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
         rb.AddForce(Camera.main.transform.forward * throwFoce);
         grabbedObject = null;
     }

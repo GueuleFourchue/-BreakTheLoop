@@ -26,7 +26,7 @@ public class TeleportTrigger : MonoBehaviour {
                 if (keepXPosition)
                     loopTeleport.finalPosition = new Vector3 (other.transform.position.x, TpPosition.y, TpPosition.z);
                 if (keepYPosition)
-                    loopTeleport.finalPosition = new Vector3(TpPosition.x, other.transform.position.y, TpPosition.z);
+                    loopTeleport.finalPosition = new Vector3(TpPosition.x, other.transform.position.y + 0.1f, TpPosition.z);
                 if (keepZPosition)
                     loopTeleport.finalPosition = new Vector3(TpPosition.x, TpPosition.y, other.transform.position.z);
 
